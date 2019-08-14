@@ -1,0 +1,21 @@
+#include<stdio.h>
+#include<signal.h>
+static char buffer[80];
+void myInt(int sno)
+{
+printf("The term signal caught=%d\n",sno);
+}
+     
+int main()
+{
+struct sigaction act,oldact;
+act.sa_handler=myInt;
+sigaction(SIGINT,&act,&oldact);
+while(1)
+{
+printf("process id=%d\n",getpid());
+printf("Enter your Buffer \n");
+fgets(buffer,80,stdin);
+printf("The buffer is %s\n",buffer);
+}
+}
